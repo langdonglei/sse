@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+</head>
+<body>
+<div id="vue">
+    <label>
+        <input type="text" placeholder="sse host" v-model="host" size="60">
+    </label>
+    <button v-on:click="start">start</button>
+    <button v-on:click="stop">stop</button>
+</div>
+<script>
+    new Vue({
+        el: '#vue',
+        data: {
+            host: 'http://127.0.0.1:8030/server.php',
+            source: null
+        },
+        methods: {
+            start: function () {
+                this.$data.source = new EventSource(this.$data.host)
+                this.$data.source.onmessage = function (e) {
+                    console.log(e.data)
+                }
+            },
+            stop: function () {
+                if (this.$data.source && 'onmessage' in this.$data.source) {
+                    this.$data.source.onmessage = null
+                }
+            }
+        },
+    })
+</script>
+</body>
+</html>
