@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1.4.2/src/httpVueLoader.min.js"></script>
 </head>
 <body>
 <div id="vue">
@@ -12,8 +13,10 @@
     </label>
     <button v-on:click="start">start</button>
     <button v-on:click="stop">stop</button>
+    <Test></Test>
 </div>
 <script>
+    Vue.use(httpVueLoader)
     new Vue({
         el: '#vue',
         data: {
@@ -33,6 +36,9 @@
                 }
             }
         },
+        components: {
+            'Test': 'url:./component/test.vue'
+        }
     })
 </script>
 </body>
